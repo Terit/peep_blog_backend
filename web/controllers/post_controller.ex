@@ -6,6 +6,12 @@ defmodule PeepBlogBackend.PostController do
   plug :scrub_params, "post" when action in [:create, :update]
   plug :action
 
+  def options(conn, _params) do
+    conn
+    |> put_status(200)
+    |> text(nil)
+  end
+
   def index(conn, _params) do
     posts = Repo.all(Post)
     render(conn, "index.json", posts: posts)
